@@ -1,0 +1,50 @@
+
+
+<form #form="ngForm"(ngSubmit)="onSubmit()">
+  <div class="container custom-container">
+    <div class="col-md-12">
+    <div class="form-group">
+     <label for="name">ENter your name</label>
+     <input type="text" id="name" required [(ngModel)]="employeeDetails.name" name="name" #fname="ngModel" class="form-control">
+     <div [hidden]="fname.valid || fname.pristine" class="alert alert-danger">
+      Name required
+    </div>
+    </div>
+    <div class="form-group" [class.has-error]="email.invalid && email.touched">
+      <label for="email">ENter your email</label>
+      <input id="email" required email type="text" [(ngModel)]="employeeDetails.email" name="email" #email="ngModel" class="form-control">
+      <div class="alert alert-danger" *ngIf="email.errors?.required && email.touched">
+        Email is required
+      </div>
+       <div class="alert alert-danger" *ngIf="email.errors?.email && email.touched">
+         Email is invalid
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="joindate">ENter your Joining data</label>
+      <input type="date" id="joindate" required [(ngModel)]="employeeDetails.joiningDate" name="joindate" #jdate="ngModel" class="form-control">
+      <div [hidden]="jdate.valid ||jdate.untouched" class="alert alert-danger">Date required</div>
+    </div>
+    <div class="form-group">
+      <label for="country">ENter your country</label>
+      <input id="country" required type="text" [(ngModel)]="employeeDetails.country" name="country" #count="ngModel" class="form-control">
+      <div [hidden]="count.valid || count.pristine" class="alert alert-danger">
+        Country required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">ENter your phone</label>
+      <input type="tel"[pattern]="mobNumberPattern" id="phone" required [(ngModel)]="employeeDetails.phone" name="phone" #phn="ngModel" class="form-control">
+      <div class="alert alert-danger" *ngIf="phn.errors?.required && phn.touched">
+        phone is required
+      </div>
+      <div class="alert alert-danger" *ngIf="phn.errors?.pattern && phn.touched">
+         not valid
+     </div>
+    </div>
+     <div>
+     <button [disabled]="form.invalid" type="submit" class="btn btn-success">submit</button>
+     </div>
+  </div>
+</div>
+</form>

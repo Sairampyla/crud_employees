@@ -1,0 +1,57 @@
+
+
+<div class="container custom-container-2">
+
+    <!-- Show it when there is no employee -->
+    <div class="no-data text-center" *ngIf="Employee.length == 0">
+      <p>There is no employee added yet!</p>
+      <button class="btn btn-outline-primary" routerLink="/create-employee">Add Employee</button>
+    </div>
+  
+    <!-- Employees list table, it hides when there is no employee -->
+    <div *ngIf="Employee.length !== 0">
+      <h3 class="mb-3 text-center">Employees List</h3>
+      <div>
+      <label>Search by joiningdate: </label>
+      <input type="date" #startDate>
+      </div>
+      <div>
+        <label>Search by ENDdate: </label>
+        <input type="date" #endDate>
+        </div>
+        <!-- <div>
+        <input type="text" bsDaterangepicker #startDate #endDate>
+        </div> -->
+        <button type="button" class="btn btn-success" (click)="getFilteredData(startDate.value,endDate.value)">Filter</button>
+        <button class="btn btn-primary" (click)="clearFilter()">clear filter</button>
+      <div class="col-md-16">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">JoinDate</th>
+              <th scope="col">Country</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of Employee || filteredArrayByDate">
+              <td>{{employee.id}}</td>
+              <td>{{employee.name}}</td>
+              <td>{{employee.email}}</td>
+              <td>{{employee.joiningdate}}</td>
+              <td>{{employee.country}}</td>
+              <td>{{employee.phone}}</td>
+              <td>
+                <span class="edit" class="btn btn-success" routerLink="/employee-edit/{{employee.id}}">Edit</span>
+                <span class="delete" class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
